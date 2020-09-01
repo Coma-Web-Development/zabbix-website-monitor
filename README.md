@@ -25,6 +25,8 @@ yum -y install nodejs gcc-c++ make yarn bc
 yarn global add lighthouse
 ```
 
+**Note:** yarn, lighthouse, nodejs and related packages are only needed if you want create reports about performance.
+
 # Hosts list
 You need to create a hosts list to be monitored and make it available through some http server, because the script use curl to make some testes.
 The hosts list standard:
