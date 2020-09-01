@@ -1,7 +1,7 @@
 # zabbix-website-monitor
 Zabbix LLD and scripts rules to monitor websites. The goal is to get something more complete than Zabbix web scenarios.
 
-# Sponsor: https://coma.lv
+# Sponsor: [coma.lv](https://coma.lv)
 
 ![coma.lv](https://coma.lv/coma-logo.png)
 
