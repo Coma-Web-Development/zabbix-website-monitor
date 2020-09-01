@@ -42,6 +42,9 @@ getHosts()
   # remove empty and commented lines started with #
   sed -i -e '/^\s*#.*$/d' -e '/^\s*$/d' $aux_tmp_file_domains_list
 
+  # remove lines that do not finish with ; symbol
+  sed -i -e '/.*\;$/!d' $aux_tmp_file_domains_list
+
   # build the final domains list file
   cat $aux_tmp_file_domains_list >> $tmp_file_domains_list
 
