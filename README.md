@@ -41,8 +41,14 @@ yarn global add lighthouse
 **Note:** yarn, lighthouse, nodejs and related packages are only needed if you want create reports about performance.
 
 # Hosts list file
-You need to create a hosts list to be monitored and make it available through some http server, because the script use curl to make some testes.
-The hosts list standard:
+
+You have to create two files.
+
+1. The "URL hosts list" that contain all sites to be monitored, one by line.
+2. The directory with files that contain the files with the URL to download the "URL host list". It will be called "Host list files".
+
+
+**The "URL hosts list" standard:**
 ```bash
 url;protocol;
 # or
@@ -53,24 +59,28 @@ All empty or commented lines started with "#" will be ignored. Eventually invali
 
 A real example of host conf file:
 ```bash
+# https://example.com/hosts.txt file example
 google.com;https;
 bing.com;http;
 example:8090;https;
 example2:3000;http;
 ```
 
-The script that read the hosts lists files is the
+It will read the hosts files and generate a JSON in Zabbix LLD standard. The parameters will be the URL's (one or more) of hosts that you want to monitor.
+
+**The "Host list files" standard:**
 
 ```bash
-zabbix_websitemonitor_lld_sites.sh
+https://example.com/hosts.txt
+https://example2.com/hosts.txt
 ```
 
-file. It will read the hosts files and generate a JSON in Zabbix LLD standard. The parameters will be the URL's (one or more) of hosts that you want to monitor.
+**How it will work?**
+The Zabbix LLD script, that will discover all the URLs to be monitored, will read all the "Host list files" to get all URLs that contain the hosts to be monitored. Then it will access all the "Host list files" URLs to download the final list of hosts to be monitored.
 
-Real example:
-```bash
-zabbix_websitemonitor_lld_sites.sh https://example.com/hosts.txt http://example2:8080/hosts.txt https://example.example3.net/domains.txt
-```
+**Why do that in two steps?**
+To avoid you lose your "Host list files" when you update the Zabbix LLD script and to provide a way to load all of them from only one directory. And will be more easier only config one directoy instead of a lot of "URL hosts list".
+
 
 # Documentation
 
@@ -85,6 +95,14 @@ zabbix_website_monitor_.xml
 2. Copy the zabbix scripts to your zabbix scripts dir (check the zabbix_scripts dir) in the server that will monitor your sites.
 
 By default, it come configured to be installed on /opt/zabbix/. Do not forget to provide executable permission to the owner and fix the owner/group to zabbix:zabbix.
+
+**Important**: Configure the 
+
+```bash
+url_list_files=
+```
+
+variable with the absolute path that contain all **"URL host files"** that will be read to get all **"URL hosts list"**.
 
 3. Copy the zabbix conf file (check the zabbix_conf dir) to the conf dir of zabbix agent that will monitor the sites. Usually the dir is:
 ```bash
