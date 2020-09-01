@@ -108,19 +108,25 @@ systemctl restart zabbix-agent
 
 ## How to update
 
-1. To update the scripts, you only have to copy the content of the below dir to your zabbix script directory.
+1. Backup your template, your zabbix scripts dir and the zabbix conf file.
+
+2. To update the scripts, you only have to copy the content of the below dir to your zabbix script directory.
+
+**Important:** If the Hosts list file is in different path from default (/opt/zabbix/zabbix_webmonitor_hosts_list.txt), you have to update the file.
 
 ```bash
 zabbix_scripts
 ``` 
 
-2. To update the zabbix agent conf file, you need to override the new version in the zabbix agent conf directoy.
+3. To update the zabbix agent conf file, you need to override the new version in the zabbix agent conf directoy.
 
 **Important:** You need to change the scripts directory if you use a custom directory (different from /opt/zabbix). After copy the new files, you need restart the zabbix-agent.
 
-3. Import again the template and override the old one.
+4. Import again the template and override the old one.
 
 **Important:** If you customized anything, we recommend export your template and manually edit the XML file to add the new features. If you know how to use git patch, will be easier than do manual edit.
+
+4. 
 
 ## How to remove
 
