@@ -42,11 +42,7 @@ yarn global add lighthouse
 
 # Hosts list file
 
-You have to create two files.
-
-1. The "URL hosts list" that contain all sites to be monitored, one by line.
-2. The directory with files that contain the files with the URL to download the "URL host list". It will be called "Host list files".
-
+You have to create on dir and include in this dir one or more files with a list of hosts to be monitored. Every file must list one host per line and you must follow the standard below.
 
 **The "URL hosts list" standard:**
 ```bash
@@ -66,21 +62,15 @@ example:8090;https;
 example2:3000;http;
 ```
 
-It will read the hosts files and generate a JSON in Zabbix LLD standard. The parameters will be the URL's (one or more) of hosts that you want to monitor.
+**Important:**
+- All parameters must be separated by ";" symbol
+- First parameter is the address with or without the port
+- Second parameter is the protocol that will be used
+- Last ";" symbol is needed and if the line does not has, the host will be ignored
 
-**The "Host list files" standard:**
-
-```bash
-https://example.com/hosts.txt
-https://example2.com/hosts.txt
-```
 
 **How it will work?**
-The Zabbix LLD script, that will discover all the URLs to be monitored, will read all the "Host list files" to get all URLs that contain the hosts to be monitored. Then it will access all the "Host list files" URLs to download the final list of hosts to be monitored.
-
-**Why do that in two steps?**
-To avoid you lose your "Host list files" when you update the Zabbix LLD script and to provide a way to load all of them from only one directory. And will be more easier only config one directoy instead of a lot of "URL hosts list".
-
+The Zabbix LLD script, that will discover all the URLs to be monitored, will read all the files inside that directory to get all hosts that will be monitored.
 
 # Documentation
 
@@ -99,10 +89,14 @@ By default, it come configured to be installed on /opt/zabbix/. Do not forget to
 **Important**: Configure the 
 
 ```bash
-url_list_files=
+url_list_directory=
 ```
 
-variable with the absolute path that contain all **"URL host files"** that will be read to get all **"URL hosts list"**.
+variable with the absolute path that contain all **"URL hosts list files"**. The default path is 
+
+```bash
+/opt/zabbix/url_list_directory/
+```
 
 3. Copy the zabbix conf file (check the zabbix_conf dir) to the conf dir of zabbix agent that will monitor the sites. Usually the dir is:
 ```bash
@@ -155,3 +149,14 @@ zabbix_scripts
 ## Items monitored explained
 
 TO DO
+
+
+# FAQ
+1. **How to get all active domains from cPanel?** You can execute:
+```bash
+for line in `cat /etc/userdomains | sed s/[[:space:]]*//g | grep -v "^\*"`; do DOMAIN=`echo ${line} | cut -d ":" -f 1`; USERNAME=`echo ${line} | cut -d ":" -f 2`; if [ ! -f "/var/cpanel/suspended/${USERNAME}" ]; then echo ${DOMAIN}; fi; done
+```
+2. **How to get all domains from VestaCP?** You can execute:
+```bash
+v-list-users | tail -n +3 | awk '{print "v-list-web-domains "$1" | tail -n +3"}' | bash | awk '{ print $1}' | egrep -iv localhost
+```
