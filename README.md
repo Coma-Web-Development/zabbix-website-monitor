@@ -11,6 +11,18 @@ We offer our clients design, development, hosting and support of WordPress proje
 
 In this git we are going to share useful snippets for technologies that we are using in our everyday tasks.
 
+# Features and the status
+
+Feature | Status
+------- | ------ 
+Zabbix template | to do
+Connect time (3-way handshake) | ready
+Latency | ready
+HTTP response code | ready
+Lookup time | ready
+Lighthouse benchmark | to do
+
+
 # Linux requirements
 - Unix or Linux environment
 - Packages: curl, wget, awk, bash, nodejs, yarn, chromium, bc
@@ -58,5 +70,3 @@ Real example:
 ```bash
 zabbix_websitemonitor_lld_sites.sh https://example.com/hosts.txt http://example2:8080/hosts.txt https://example.example3.net/domains.txt
 ```
-
-#
