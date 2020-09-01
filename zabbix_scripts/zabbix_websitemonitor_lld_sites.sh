@@ -25,6 +25,7 @@ createTempFiles()
   tmp_file_zabbix_json=$(mktemp /tmp/zabbix_lld_monitor.XXXXXXXX)
 }
 
+# download the URLs list files and create one big list to be monitored
 getHostsFiles()
 {
   aux_tmp_file_domains_list=$(mktemp /tmp/zabbix_lld_monitor.XXXXXXXX)
@@ -46,6 +47,21 @@ getHostsFiles()
   # remove temp file
   rm -f $aux_tmp_file_domains_list
   return 0
+}
+
+# read all URL lists
+getAllUrlLists()
+{
+  aux_tmp_file_hosts_lists=$(mktemp /tmp/zabbix_lld_monitor.XXXXXXXXX)
+  for hosts_list in $url_list_files
+  do
+    if [ -f $hosts_list ]
+    then
+      cat $hosts_list >> $aux_tmp_file_hosts_lists
+    fi
+  done
+  url_domains_list=$(cat $aux_tmp_file_hosts_lists)
+  rm -f aux_tmp_file_hosts_lists  
 }
 
 # count how much lines the domains list file has
@@ -93,17 +109,20 @@ cleanTempFiles()
 # global vars
 #
 # to be configured by the user:
-# url_domains_list is to add all sources of hosts to be monitored. Can be more than one source, separated by space.
-url_domains_list="http://host.example.com/hosts.txt"
-#
-# not needed to changed unless you know what you are doing
+# url_list_files is to add all sources of hosts to be monitored. Can be more than one source, separated by space.
+# the url list file must has one URL per line and permission to zabbix read this file.
+url_list_files="/opt/zabbix/zabbix_webmonitor_hosts_list.txt /etc/zabbix/hosts_list.txt"
+
+# not needed to be changed unless you know what you are doing
 tmp_file_domains_list=""
 tmp_file_zabbix_json=""
 count_hosts_number=""
+url_domains_list=""
 ##
 
 # start process the hosts
 createTempFiles
+getAllUrlLists
 getHostsFiles
 getHostsNumber
 createJsonHead
