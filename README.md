@@ -25,6 +25,7 @@ Lighthouse benchmark | to do
 
 # Linux requirements
 - Unix or Linux environment
+- Hosts list file to be monitored
 - Packages: curl, wget, awk, bash, nodejs, yarn, chromium, bc
 
 Centos 7.x commands:
@@ -39,7 +40,7 @@ yarn global add lighthouse
 
 **Note:** yarn, lighthouse, nodejs and related packages are only needed if you want create reports about performance.
 
-# Hosts list
+# Hosts list file
 You need to create a hosts list to be monitored and make it available through some http server, because the script use curl to make some testes.
 The hosts list standard:
 ```bash
