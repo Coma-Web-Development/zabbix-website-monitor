@@ -63,14 +63,15 @@ example2:3000;http;
 ```
 
 **Important:**
-- All parameters must be separated by ";" symbol
+- All parameters must be separated by semic9olon (;) symbol
 - First parameter is the address with or without the port
 - Second parameter is the protocol that will be used
-- Last ";" symbol is needed and if the line does not has, the host will be ignored
+- Last semicolon (;) symbol is needed and if the line does not has, the host will be ignored
 
 
 **How it will work?**
-The Zabbix LLD script, that will discover all the URLs to be monitored, will read all the files inside that directory to get all hosts that will be monitored.
+
+The Zabbix LLD script, that will discover all the URLs to be monitored, will read all the files inside that directory to get all hosts that will be monitored. Every file will containe one host per line.
 
 # Documentation
 
@@ -124,11 +125,10 @@ systemctl restart zabbix-agent
 
 2. To update the scripts, you only have to copy the content of the below dir to your zabbix script directory.
 
-**Important:** If the Hosts list file is in different path from default (/opt/zabbix/zabbix_webmonitor_hosts_list.txt), you have to update the file.
-
 ```bash
 zabbix_scripts
 ``` 
+**Important:** If the Hosts lists directory is in different path from default (/opt/zabbix/url_list_directory/), you have to update the file with you custom directory.
 
 3. To update the zabbix agent conf file, you need to override the new version in the zabbix agent conf directoy.
 
@@ -137,8 +137,6 @@ zabbix_scripts
 4. Import again the template and override the old one.
 
 **Important:** If you customized anything, we recommend export your template and manually edit the XML file to add the new features. If you know how to use git patch, will be easier than do manual edit.
-
-4. 
 
 ## How to remove
 
