@@ -53,7 +53,9 @@ getHostsFiles()
 getAllUrlLists()
 {
   aux_tmp_file_hosts_lists=$(mktemp /tmp/zabbix_lld_monitor.XXXXXXXXX)
-  for hosts_list in $url_list_files
+  aux_url_list_files=$(ls ${url_list_files}*)
+
+  for hosts_list in $aux_url_list_files
   do
     if [ -f $hosts_list ]
     then
@@ -109,9 +111,9 @@ cleanTempFiles()
 # global vars
 #
 # to be configured by the user:
-# url_list_files is to add all sources of hosts to be monitored. Can be more than one source, separated by space.
+# url_list_files is to add all sources of hosts to be monitored. You have to configure the directory from where it will be loaded. The script will load all the files inside that directory, ignoring blank lines and commented lines with # char.
 # the url list file must has one URL per line and permission to zabbix read this file.
-url_list_files="/opt/zabbix/zabbix_webmonitor_hosts_list.txt /etc/zabbix/hosts_list.txt"
+url_list_files="/opt/zabbix/url_list_files/"
 
 # not needed to be changed unless you know what you are doing
 tmp_file_domains_list=""
