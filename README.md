@@ -70,3 +70,21 @@ Real example:
 ```bash
 zabbix_websitemonitor_lld_sites.sh https://example.com/hosts.txt http://example2:8080/hosts.txt https://example.example3.net/domains.txt
 ```
+
+# Documentation
+
+## How to install
+
+TO DO
+
+## How to update
+
+TO DO
+
+## How to remove
+
+TO DO
+
+## Items monitored explained
+
+TO DO
