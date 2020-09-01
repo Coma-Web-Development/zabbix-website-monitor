@@ -114,9 +114,11 @@ zabbix_scripts
 ``` 
 
 2. To update the zabbix agent conf file, you need to override the new version in the zabbix agent conf directoy.
+
 **Important:** You need to change the scripts directory if you use a custom directory (different from /opt/zabbix). After copy the new files, you need restart the zabbix-agent.
 
 3. Import again the template and override the old one.
+
 **Important:** If you customized anything, we recommend export your template and manually edit the XML file to add the new features. If you know how to use git patch, will be easier than do manual edit.
 
 ## How to remove
