@@ -26,44 +26,27 @@ createTempFiles()
 }
 
 # download the URLs list files and create one big list to be monitored
-getHostsFiles()
+getHosts()
 {
   aux_tmp_file_domains_list=$(mktemp /tmp/zabbix_lld_monitor.XXXXXXXX)
-  for hostlist in $url_domains_list
-  do
-    wget --no-check-certificate --timeout=10 -O $aux_tmp_file_domains_list $url_domains_list &> /dev/null
-    return_wget=$?
-    
-    if [ $return_wget -ne 0 ]
-    then
-      return 1
-    else
-      # remove blank and commented lines
-      sed -i -e '/^\s*#.*$/d' -e '/^\s*$/d' $aux_tmp_file_domains_list
-      # build the final domains list file
-      cat $aux_tmp_file_domains_list >> $tmp_file_domains_list
-    fi
-  done
-  # remove temp file
-  rm -f $aux_tmp_file_domains_list
-  return 0
-}
+  aux_url_files=$(ls ${url_list_directory}/*)
 
-# read all URL lists
-getAllUrlLists()
-{
-  aux_tmp_file_hosts_lists=$(mktemp /tmp/zabbix_lld_monitor.XXXXXXXXX)
-  aux_url_list_files=$(ls ${url_list_files}*)
-
-  for hosts_list in $aux_url_list_files
+  for hosts_list in $aux_url_files
   do
     if [ -f $hosts_list ]
     then
-      cat $hosts_list >> $aux_tmp_file_hosts_lists
+      cat $hosts_list >> $aux_tmp_file_domains_list
     fi
   done
-  url_domains_list=$(cat $aux_tmp_file_hosts_lists)
-  rm -f aux_tmp_file_hosts_lists  
+
+  # remove empty and commented lines started with #
+  sed -i -e '/^\s*#.*$/d' -e '/^\s*$/d' $aux_tmp_file_domains_list
+
+  # build the final domains list file
+  cat $aux_tmp_file_domains_list >> $tmp_file_domains_list
+
+  # remove temp file
+  rm -f $aux_tmp_file_domains_list
 }
 
 # count how much lines the domains list file has
@@ -111,9 +94,8 @@ cleanTempFiles()
 # global vars
 #
 # to be configured by the user:
-# url_list_files is to add all sources of hosts to be monitored. You have to configure the directory from where it will be loaded. The script will load all the files inside that directory, ignoring blank lines and commented lines with # char.
-# the url list file must has one URL per line and permission to zabbix read this file.
-url_list_files="/opt/zabbix/url_list_files/"
+# the directory that contain all lists of hosts to be monitored. all files will be read.
+url_list_directory="/opt/zabbix/url_list_directory/"
 
 # not needed to be changed unless you know what you are doing
 tmp_file_domains_list=""
@@ -124,8 +106,7 @@ url_domains_list=""
 
 # start process the hosts
 createTempFiles
-getAllUrlLists
-getHostsFiles
+getHosts
 getHostsNumber
 createJsonHead
 createJsonBody
