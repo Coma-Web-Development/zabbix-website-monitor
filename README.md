@@ -26,7 +26,7 @@ Lighthouse benchmark | to do
 # Linux requirements
 - Unix or Linux environment
 - Hosts list file to be monitored
-- Packages: curl, wget, awk, bash, nodejs, yarn, chromium, bc
+- Opensource packages: curl, wget, awk, bash, nodejs, yarn, chromium, bc, ping, jq
 
 Centos 7.x commands:
 ```bash
