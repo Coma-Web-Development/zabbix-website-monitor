@@ -1,16 +1,6 @@
 # zabbix-website-monitor
 Zabbix LLD and scripts rules to monitor websites. The goal is to get something more complete than Zabbix web scenarios.
 
-# Sponsor: [coma.lv](https://coma.lv)
-
-![coma.lv](https://coma.lv/coma-logo.png)
-
-We are a WordPress development company from Latvia focusing on full-stack WordPress development and administration. 
-
-We offer our clients design, development, hosting and support of WordPress projects created in our agency.
-
-In this git we are going to share useful snippets for technologies that we are using in our everyday tasks.
-
 # Features and the status
 
 Feature | Status
