@@ -30,15 +30,19 @@ Lighthouse benchmark | to do
 
 Centos 7.x commands:
 ```bash
+# to monitoring work
+yum -y install jq curl
+
+# to benchmark monitoring work
 yum -y install epel-release
-yum -y install curl wget chromium
+yum -y install chromium
 curl –sL https://rpm.nodesource.com/setup_12.x | sudo bash -
 curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
 yum -y install nodejs gcc-c++ make yarn bc
 yarn global add lighthouse
 ```
 
-**Note:** yarn, lighthouse, nodejs and related packages are only needed if you want create reports about performance.
+**Note:** yarn, lighthouse, chromium, nodejs and related packages are only needed if you want create reports about performance.
 
 # Hosts list file
 
@@ -158,7 +162,7 @@ for line in `cat /etc/userdomains | sed s/[[:space:]]*//g | grep -v "^\*"`; do D
 ```bash
 v-list-users | tail -n +3 | awk '{print "v-list-web-domains "$1" | tail -n +3"}' | bash | awk '{ print $1}' | egrep -iv localhost
 ```
-3. **How to get all active domains from Cyberpanel?** You can execute:
+3. **How to get all active domains from Cyberpanel?** You can execute (you need jq package installed):
 ```bash
 cyberpanel listWebsitesJson | jq -r 'fromjson[] | select(.state=="Active") | .domain'
 ```
