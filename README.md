@@ -158,3 +158,7 @@ for line in `cat /etc/userdomains | sed s/[[:space:]]*//g | grep -v "^\*"`; do D
 ```bash
 v-list-users | tail -n +3 | awk '{print "v-list-web-domains "$1" | tail -n +3"}' | bash | awk '{ print $1}' | egrep -iv localhost
 ```
+3. **How to get all active domains from Cyberpanel?** You can execute:
+```bash
+cyberpanel listWebsitesJson | jq -r 'fromjson[] | select(.state=="Active") | .domain'
+```
