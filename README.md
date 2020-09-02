@@ -31,14 +31,14 @@ Lighthouse benchmark | to do
 Centos 7.x commands:
 ```bash
 # to monitoring work
-yum -y install jq curl
+yum -y install jq curl bc
 
 # to benchmark monitoring work
 yum -y install epel-release
 yum -y install chromium
 curl –sL https://rpm.nodesource.com/setup_12.x | sudo bash -
 curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
-yum -y install nodejs gcc-c++ make yarn bc
+yum -y install nodejs gcc-c++ make yarn
 yarn global add lighthouse
 ```
 
