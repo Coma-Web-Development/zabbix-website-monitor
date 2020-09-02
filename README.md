@@ -67,7 +67,7 @@ example2:3000;http;
 ```
 
 **Important:**
-- All parameters must be separated by semic9olon (;) symbol
+- All parameters must be separated by semicolon (;) symbol
 - First parameter is the address with or without the port
 - Second parameter is the protocol that will be used
 - Last semicolon (;) symbol is needed and if the line does not has, the host will be ignored
