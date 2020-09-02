@@ -17,6 +17,7 @@ Lighthouse benchmark | to do
 - Unix or Linux environment
 - Hosts list file to be monitored
 - Opensource packages: curl, wget, awk, bash, nodejs, yarn, chromium, bc, ping, jq
+- zabbix-agent configured with timeout of 30 seconds
 
 Centos 7.x commands:
 ```bash
@@ -105,6 +106,14 @@ variable with the absolute path that contain all **"URL hosts list files"**. The
 
 ```bash
 zabbix_website_monitor.conf
+```
+
+4. Change the zabbix-agent timeout to 30 seconds (maximum) and restart zabbix-agent.
+
+```bash
+# edit the zabbix-agent file, usually is the /etc/zabbix/zabbix_agentd.conf
+# add or update the config:
+Timeout=30
 ```
 
 To restart the the Zabbix agent:
