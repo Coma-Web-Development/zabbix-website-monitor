@@ -2,7 +2,7 @@
 
 url=$1
 protocol=$2
-curl_result=$(curl -s -w  %{time_namelookup} -o /dev/null ${protocol}://${url})
+curl_result=$(curl -s --max-time 5 -w  %{time_namelookup} -o /dev/null ${protocol}://${url})
 curl_return=$?
 
 bc_calc=$(echo "curl_return > 0" | bc -l)
