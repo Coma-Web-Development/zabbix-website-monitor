@@ -5,7 +5,7 @@ Zabbix LLD and scripts rules to monitor websites. The goal is to get something m
 
 Feature | Status
 ------- | ------ 
-Zabbix template | to do
+Zabbix template | ready
 Connect time (3-way handshake) | ready
 Latency | ready
 HTTP response code | ready

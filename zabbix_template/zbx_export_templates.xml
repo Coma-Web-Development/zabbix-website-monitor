@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2020-09-12T06:31:38Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Zabbix Website Monitor</template>
+            <name>Zabbix Website Monitor</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Connect Time</name>
+                </application>
+                <application>
+                    <name>HTTP Response</name>
+                </application>
+                <application>
+                    <name>Latency</name>
+                </application>
+                <application>
+                    <name>Lookup Time</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Website Monitoring</name>
+                    <key>websitemonitor.lld</key>
+                    <lifetime>90d</lifetime>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Connect time of {#URL}, protocol {#PROTOCOL}</name>
+                            <key>websitemonitor.connect.time[{#URL},{#PROTOCOL}]</key>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Connect Time</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Connect Time</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;2</expression>
+                                    <name>Connect time (3-way tcp) &gt; 2 seconds: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>time_connect is the TCP three-way handshake from the client’s perspective. It ends just after the client sends the ACK - it doesn't include the time taken for that ACK to reach the server. It should be close to the round-trip time (RTT) to the server. Time in seconds.</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>HTTP Response code of {#URL}, protocol {#PROTOCOL}</name>
+                            <key>websitemonitor.http_response_code[{#URL},{#PROTOCOL}]</key>
+                            <applications>
+                                <application>
+                                    <name>Connect Time</name>
+                                </application>
+                                <application>
+                                    <name>HTTP Response</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Connect Time</name>
+                                </application_prototype>
+                                <application_prototype>
+                                    <name>HTTP Response</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}=400</expression>
+                                    <name>400 Bad Request: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The server could not understand the request due to invalid syntax.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=403</expression>
+                                    <name>403 Forbidden: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The client does not have access rights to the content; that is, it is unauthorized, so the server is refusing to give the requested resource. Unlike 401, the client's identity is known to the server.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=404</expression>
+                                    <name>404 Not Found: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The server can not find the requested resource. In the browser, this means the URL is not recognized. In an API, this can also mean that the endpoint is valid but the resource itself does not exist. Servers may also send this response instead of 403 to hide the existence of a resource from an unauthorized client. This response code is probably the most famous one due to its frequent occurrence on the web.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=406</expression>
+                                    <name>406 Not Acceptable: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content that conforms to the criteria given by the user agent.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=408</expression>
+                                    <name>408 Request Timeout: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>This response is sent on an idle connection by some servers, even without any previous request by the client. It means that the server would like to shut down this unused connection. This response is used much more since some browsers, like Chrome, Firefox 27+, or IE9, use HTTP pre-connection mechanisms to speed up surfing. Also note that some servers merely shut down the connection without sending this message.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=410</expression>
+                                    <name>410 Gone: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>This response is sent when the requested content has been permanently deleted from server, with no forwarding address. Clients are expected to remove their caches and links to the resource. The HTTP specification intends this status code to be used for &quot;limited-time, promotional services&quot;. APIs should not feel compelled to indicate resources that have been deleted with this status code.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=414</expression>
+                                    <name>414 URI Too Long: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The URI requested by the client is longer than the server is willing to interpret.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=429</expression>
+                                    <name>429 Too Many Requests: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The user has sent too many requests in a given amount of time (&quot;rate limiting&quot;).</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=500</expression>
+                                    <name>500 Internal Server Error: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The server has encountered a situation it doesn't know how to handle. Usually is related with server permissions.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=501</expression>
+                                    <name>501 Not Implemented: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The request method is not supported by the server and cannot be handled. The only methods that servers are required to support (and therefore that must not return this code) are GET and HEAD.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=502</expression>
+                                    <name>502 Bad gateway: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>This error response means that the server, while working as a gateway to get a response needed to handle the request, got an invalid response.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=503</expression>
+                                    <name>503 Service Unavailable: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded. Note that together with this response, a user-friendly page explaining the problem should be sent. This responses should be used for temporary conditions and the Retry-After: HTTP header should, if possible, contain the estimated time before the recovery of the service. The webmaster must also take care about the caching-related headers that are sent along with this response, as these temporary condition responses should usually not be cached.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=504</expression>
+                                    <name>504 Gateway Timeout: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>This error response is given when the server is acting as a gateway and cannot get a response in time.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=508</expression>
+                                    <name>508 Loop Detected: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The server detected an infinite loop while processing the request.</description>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}=511</expression>
+                                    <name>511 Network Authentication Required: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The 511 status code indicates that the client needs to authenticate to gain network access.</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Latency of {#URL}</name>
+                            <key>websitemonitor.latency[{#URL}]</key>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Latency</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Latency</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;300</expression>
+                                    <name>Latency &gt; 300ms: {#URL}</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;1500</expression>
+                                    <name>Latency &gt; 1500ms: {#URL}</name>
+                                    <priority>DISASTER</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Lookup time of {#URL}, protocol {#PROTOCOL}</name>
+                            <key>websitemonitor.lookup.time[{#URL},{#PROTOCOL}]</key>
+                            <value_type>FLOAT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Latency</name>
+                                </application>
+                                <application>
+                                    <name>Lookup Time</name>
+                                </application>
+                            </applications>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>Latency</name>
+                                </application_prototype>
+                                <application_prototype>
+                                    <name>Lookup Time</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;1</expression>
+                                    <name>Lookup time &gt; 1 second: {#PROTOCOL}://{#URL}</name>
+                                    <priority>HIGH</priority>
+                                    <description>The time, in seconds, it took from the start until the name resolving was completed.</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+        </template>
+    </templates>
+</zabbix_export>
