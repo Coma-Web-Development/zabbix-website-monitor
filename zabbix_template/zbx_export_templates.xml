@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2020-09-12T06:31:38Z</date>
+    <date>2020-09-12T06:46:28Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -18,16 +18,7 @@
             </groups>
             <applications>
                 <application>
-                    <name>Connect Time</name>
-                </application>
-                <application>
-                    <name>HTTP Response</name>
-                </application>
-                <application>
-                    <name>Latency</name>
-                </application>
-                <application>
-                    <name>Lookup Time</name>
+                    <name>Zabbix Website Monitor</name>
                 </application>
             </applications>
             <discovery_rules>
@@ -42,12 +33,12 @@
                             <value_type>FLOAT</value_type>
                             <applications>
                                 <application>
-                                    <name>Connect Time</name>
+                                    <name>Zabbix Website Monitor</name>
                                 </application>
                             </applications>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>Connect Time</name>
+                                    <name>Zabbix Website Monitor</name>
                                 </application_prototype>
                             </application_prototypes>
                             <trigger_prototypes>
@@ -64,18 +55,12 @@
                             <key>websitemonitor.http_response_code[{#URL},{#PROTOCOL}]</key>
                             <applications>
                                 <application>
-                                    <name>Connect Time</name>
-                                </application>
-                                <application>
-                                    <name>HTTP Response</name>
+                                    <name>Zabbix Website Monitor</name>
                                 </application>
                             </applications>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>Connect Time</name>
-                                </application_prototype>
-                                <application_prototype>
-                                    <name>HTTP Response</name>
+                                    <name>Zabbix Website Monitor</name>
                                 </application_prototype>
                             </application_prototypes>
                             <trigger_prototypes>
@@ -177,12 +162,12 @@
                             <value_type>FLOAT</value_type>
                             <applications>
                                 <application>
-                                    <name>Latency</name>
+                                    <name>Zabbix Website Monitor</name>
                                 </application>
                             </applications>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>Latency</name>
+                                    <name>Zabbix Website Monitor</name>
                                 </application_prototype>
                             </application_prototypes>
                             <trigger_prototypes>
@@ -204,18 +189,12 @@
                             <value_type>FLOAT</value_type>
                             <applications>
                                 <application>
-                                    <name>Latency</name>
-                                </application>
-                                <application>
-                                    <name>Lookup Time</name>
+                                    <name>Zabbix Website Monitor</name>
                                 </application>
                             </applications>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>Latency</name>
-                                </application_prototype>
-                                <application_prototype>
-                                    <name>Lookup Time</name>
+                                    <name>Zabbix Website Monitor</name>
                                 </application_prototype>
                             </application_prototypes>
                             <trigger_prototypes>
