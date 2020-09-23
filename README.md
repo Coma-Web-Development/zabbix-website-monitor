@@ -10,6 +10,7 @@ Connect time (3-way handshake) | ready
 Latency | ready
 HTTP response code | ready
 Lookup time | ready
+Grafana simple dashboard | ready
 Lighthouse benchmark | to do
 
 
