@@ -25,7 +25,7 @@ Centos 7.x commands:
 # to monitoring work
 yum -y install jq curl bc
 
-# to benchmark monitoring work
+# to benchmark the site with lighthouse
 yum -y install epel-release
 yum -y install chromium
 curl –sL https://rpm.nodesource.com/setup_12.x | sudo bash -
